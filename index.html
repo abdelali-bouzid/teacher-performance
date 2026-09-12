@@ -9,78 +9,68 @@ HTML
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
         body { background: #0b0f19; color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-x: hidden; }
 
+        /* Auth Screen Styling */
+        .auth-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; z-index: 9999; display: flex; align-items: center; justify-content: center;
+        }
+        .auth-card {
+            background: #1e293b; border: 1px solid #3b82f6; border-radius: 16px; padding: 35px;
+            width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        .auth-card h2 { color: #38bdf8; margin-bottom: 10px; font-size: 1.5rem; }
+        .auth-card p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 20px; }
+        .auth-card input {
+            width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px;
+            color: white; font-size: 1.1rem; text-align: center; margin-bottom: 15px; outline: none; letter-spacing: 4px;
+        }
+        .auth-card button {
+            width: 100%; padding: 12px; background: #22c55e; border: none; border-radius: 8px;
+            color: white; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s;
+        }
+        .auth-card button:hover { background: #16a34a; }
+        .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 10px; display: none; }
+
+        /* Main App Interface */
+        #mainApp { display: none; width: 100%; flex-direction: column; align-items: center; }
+
         header { text-align: center; margin-bottom: 25px; margin-top: 10px; }
         header h1 { font-size: 2rem; color: #ffffff; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; }
         header p { color: #94a3b8; font-size: 0.95rem; }
 
         /* Hub Layout Container */
         .hub-container {
-            position: relative;
-            width: 780px;
-            height: 780px;
-            margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative; width: 780px; height: 780px; margin: 20px auto;
+            display: flex; align-items: center; justify-content: center;
         }
 
         /* Circular Track */
         .circle-track {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            border: 2px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            pointer-events: none;
+            position: absolute; width: 600px; height: 600px;
+            border: 2px dashed rgba(255, 255, 255, 0.15); border-radius: 50%; pointer-events: none;
         }
 
-        /* Center Custom Logo Container */
+        /* Center Logo Container */
         .center-logo {
-            position: absolute;
-            width: 170px;
-            height: 170px;
-            background: #000000;
-            border: 4px solid #22c55e;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 35px rgba(34, 197, 94, 0.35);
-            z-index: 10;
-            text-align: center;
-            cursor: pointer;
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            position: absolute; width: 170px; height: 170px; background: #000000;
+            border: 4px solid #22c55e; border-radius: 50%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; box-shadow: 0 0 35px rgba(34, 197, 94, 0.35);
+            z-index: 10; text-align: center; cursor: pointer; overflow: hidden; transition: transform 0.3s ease;
         }
         .center-logo:hover { transform: scale(1.05); }
         .center-logo img { width: 100%; height: 100%; object-fit: cover; }
 
         /* Node Cards */
         .module-node {
-            position: absolute;
-            width: 135px;
-            height: 110px;
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-            z-index: 5;
+            position: absolute; width: 135px; height: 110px; background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; display: flex;
+            flex-direction: column; align-items: center; justify-content: center; padding: 10px;
+            text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); z-index: 5;
         }
         .module-node:hover {
-            transform: scale(1.12) !important;
-            background: #334155;
-            border-color: #38bdf8;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
-            z-index: 20;
+            transform: scale(1.12) !important; background: #334155; border-color: #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4); z-index: 20;
         }
         .module-node .icon-box { width: 42px; height: 42px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; }
         .module-node .icon-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 6px; }
@@ -134,42 +124,56 @@ HTML
 </head>
 <body>
 
-    <header>
-        <h1>Plateforme Intégrée Sage X3 & GMAO</h1>
-        <p>Gestion des Zones de Production & Connexion aux Pièces de Rechange</p>
-    </header>
-
-    <!-- Main Dynamic Hub -->
-    <div class="hub-container" id="hub">
-        <div class="circle-track"></div>
-
-        <!-- Center Logo (مخصص لصورتك) -->
-        <div class="center-logo" onclick="openModal('HUB', '⚙️ Centre de Contrôle Central')">
-            <img src="YOUR_CENTER_IMAGE_URL.png" id="centerLogoImg" alt="Logo Central" onerror="this.src='https://via.placeholder.com/170/000000/22c55e?text=SAGE+X3'">
+    <!-- Authentication Overlay Screen -->
+    <div class="auth-overlay" id="authScreen">
+        <div class="auth-card">
+            <h2>🔐 Connexion Sécurisée</h2>
+            <p>Veuillez saisir le code secret pour accéder à l'application</p>
+            <input type="password" id="secretInput" placeholder="****" maxlength="8">
+            <button onclick="checkAuth()">Accéder au Système</button>
+            <p class="error-msg" id="authError">❌ Code incorrect, réessayez !</p>
         </div>
     </div>
 
-    <!-- Bottom Toolbar -->
-    <div class="bottom-bar">
-        <div class="bottom-item" onclick="openModal('ZONES_PROD', '🏭 Zones & Lignes de Production')">
-            <span class="b-icon">🏭</span>
-            <span class="b-text">Zones de Production</span>
+    <!-- Main Content Application -->
+    <div id="mainApp">
+        <header>
+            <h1>Plateforme Intégrée Sage X3 & GMAO</h1>
+            <p>Gestion des Zones de Production & Connexion aux Pièces de Rechange</p>
+        </header>
+
+        <!-- Main Dynamic Hub -->
+        <div class="hub-container" id="hub">
+            <div class="circle-track"></div>
+
+            <!-- Center Logo -->
+            <div class="center-logo" onclick="openModal('HUB', '⚙️ Centre de Contrôle Central')">
+                <img src="YOUR_CENTER_IMAGE_URL.png" id="centerLogoImg" alt="Logo Central" onerror="this.src='https://via.placeholder.com/170/000000/22c55e?text=SAGE+X3'">
+            </div>
         </div>
-        <div class="bottom-item" onclick="openModal('PIECES_RECHANGE', '⚙️ Stock Pièces de Rechange')">
-            <span class="b-icon">⚙️</span>
-            <span class="b-text">Pièces de Rechange</span>
-        </div>
-        <div class="bottom-item" onclick="openModal('PLANNING', '🔌 Ordonnancement & Planning')">
-            <span class="b-icon">🔌</span>
-            <span class="b-text">Planning</span>
-        </div>
-        <div class="bottom-item" onclick="openModal('FINANCIER', '📊 Contrôle Financier')">
-            <span class="b-icon">📊</span>
-            <span class="b-text">Financier</span>
-        </div>
-        <div class="bottom-item" onclick="openModal('ADMIN', '🛡️ Administration X3')">
-            <span class="b-icon">🛡️</span>
-            <span class="b-text">Admin X3</span>
+
+        <!-- Bottom Toolbar -->
+        <div class="bottom-bar">
+            <div class="bottom-item" onclick="openModal('ZONES_PROD', '🏭 Zones & Lignes de Production')">
+                <span class="b-icon">🏭</span>
+                <span class="b-text">Zones de Production</span>
+            </div>
+            <div class="bottom-item" onclick="openModal('PIECES_RECHANGE', '⚙️ Stock Pièces de Rechange')">
+                <span class="b-icon">⚙️</span>
+                <span class="b-text">Pièces de Rechange</span>
+            </div>
+            <div class="bottom-item" onclick="openModal('PLANNING', '🔌 Ordonnancement & Planning')">
+                <span class="b-icon">🔌</span>
+                <span class="b-text">Planning</span>
+            </div>
+            <div class="bottom-item" onclick="openModal('FINANCIER', '📊 Contrôle Financier')">
+                <span class="b-icon">📊</span>
+                <span class="b-text">Financier</span>
+            </div>
+            <div class="bottom-item" onclick="openModal('ADMIN', '🛡️ Administration X3')">
+                <span class="b-icon">🛡️</span>
+                <span class="b-text">Admin X3</span>
+            </div>
         </div>
     </div>
 
@@ -217,6 +221,24 @@ HTML
     </div>
 
     <script>
+        const SECRET_CODE = "1234";
+
+        function checkAuth() {
+            const input = document.getElementById('secretInput').value;
+            const error = document.getElementById('authError');
+            if (input === SECRET_CODE) {
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'flex';
+            } else {
+                error.style.display = 'block';
+            }
+        }
+
+        // Allow pressing Enter on Password Input
+        document.getElementById('secretInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') { checkAuth(); }
+        });
+
         const modulesData = [
             { id: 'ZONES_PROD', title: 'Zones de Production', icon: '🏭', image: '', col1: 'Nom Zone / Ligne', col2: 'Statut Ligne' },
             { id: 'PIECES_RECHANGE', title: 'Pièces de Rechange', icon: '⚙️', image: '', col1: 'Désignation Pièce', col2: 'Zone de Production Liée' },
@@ -276,7 +298,6 @@ HTML
             document.getElementById('thCol1').textContent = modConfig.col1;
             document.getElementById('thCol2').textContent = modConfig.col2;
 
-            // تخصيص خانة الإدخال لربط قطعة الغيار بـ منطقة الإنتاج
             const f2Container = document.getElementById('field2Container');
             if (moduleId === 'PIECES_RECHANGE') {
                 const zones = database['ZONES_PROD'] || [];
