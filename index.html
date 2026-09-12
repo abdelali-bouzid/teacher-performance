@@ -5,13 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interprétation des enseignants</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f6f9; }
-        h1 { color: #0969da; }
-        p { font-size: 1.2em; color: #555; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7fe; color: #333; }
+        header { background-color: #0969da; color: white; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        
+        /* Stats Section */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
+        .card h3 { font-size: 2em; color: #0969da; margin-bottom: 5px; }
+        .card p { color: #666; font-size: 0.9em; }
+
+        /* Table Section */
+        .table-container { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .table-container h2 { margin-bottom: 15px; color: #2c3e50; font-size: 1.3em; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: #f8fafc; color: #475569; font-weight: 600; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+        .badge-success { background: #dcfce7; color: #15803d; }
+        .badge-warning { background: #fef9c3; color: #a16207; }
     </style>
 </head>
 <body>
-    <h1>Interprétation des enseignants</h1>
-    <p>Plateforme pour surveiller et évaluer la performance des enseignants.</p>
+
+    <header>
+        <h1>Interprétation des Enseignants</h1>
+        <p>Plateforme d'évaluation et de suivi de la performance</p>
+    </header>
+
+    <div class="container">
+        <!-- Dashboard Stats -->
+        <div class="stats-grid">
+            <div class="card">
+                <h3>24</h3>
+                <p>Enseignants Evalués</p>
+            </div>
+            <div class="card">
+                <h3>88%</h3>
+                <p>Taux de Satisfaction</p>
+            </div>
+            <div class="card">
+                <h3>4.5/5</h3>
+                <p>Note Moyenne</p>
+            </div>
+        </div>
+
+        <!-- Evaluation Table -->
+        <div class="table-container">
+            <h2>Rapport Récent d'Évaluation</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom d'enseignant</th>
+                        <th>Matière</th>
+                        <th>Score</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prof. Ahmed Mansouri</td>
+                        <td>Mathématiques</td>
+                        <td>4.8 / 5</td>
+                        <td><span class="badge badge-success">Excellent</span></td>
+                    </tr>
+                    <tr>
+                        <td>Prof. Sarah Benali</td>
+                        <td>Physique</td>
+                        <td>4.2 / 5</td>
+                        <td><span class="badge badge-success">Très Bien</span></td>
+                    </tr>
+                    <tr>
+                        <td>Prof. Karim Alami</td>
+                        <td>Informatique</td>
+                        <td>3.9 / 5</td>
+                        <td><span class="badge badge-warning">Moyen</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
 </html>
