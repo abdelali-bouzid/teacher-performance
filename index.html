@@ -120,6 +120,7 @@ HTML
         .btn-delete { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
         .btn-delete:hover { background: #ef4444; color: white; }
         .badge { background: #0284c7; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+        .ref-tag { color: #38bdf8; font-family: monospace; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -188,11 +189,11 @@ HTML
             <form id="modalForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label id="lblField1">Champ 1</label>
+                        <label id="lblField1">Nom / Libellé</label>
                         <input type="text" id="inputField1" required placeholder="Saisir la valeur...">
                     </div>
                     <div class="form-group" id="field2Container">
-                        <label id="lblField2">Champ 2</label>
+                        <label id="lblField2">Statut / Option</label>
                         <input type="text" id="inputField2" required placeholder="Saisir la valeur...">
                     </div>
                     <div class="form-group full">
@@ -200,16 +201,16 @@ HTML
                         <input type="text" id="inputField3" placeholder="Informations complémentaires...">
                     </div>
                 </div>
-                <button type="submit" class="btn-add">➕ Ajouter l'enregistrement</button>
+                <button type="submit" class="btn-add">➕ Enregistrer (Référence Générée Auto)</button>
             </form>
 
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID Code</th>
-                            <th id="thCol1">Colonne 1</th>
-                            <th id="thCol2">Colonne 2</th>
+                            <th>Référence Auto</th>
+                            <th id="thCol1">Nom / Libellé</th>
+                            <th id="thCol2">Statut / Option</th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
@@ -234,24 +235,23 @@ HTML
             }
         }
 
-        // Allow pressing Enter on Password Input
         document.getElementById('secretInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') { checkAuth(); }
         });
 
         const modulesData = [
-            { id: 'ZONES_PROD', title: 'Zones de Production', icon: '🏭', image: '', col1: 'Nom Zone / Ligne', col2: 'Statut Ligne' },
-            { id: 'PIECES_RECHANGE', title: 'Pièces de Rechange', icon: '⚙️', image: '', col1: 'Désignation Pièce', col2: 'Zone de Production Liée' },
-            { id: 'GMAO', title: 'Maintenance & GMAO', icon: '🛠️', image: 'YOUR_MAINTENANCE_IMAGE_URL.png', col1: 'Équipement / Machine', col2: 'Statut Panne' },
-            { id: 'CRM', title: 'CRM & Clients', icon: '📊', image: '', col1: 'Nom Client', col2: 'Statut Prospect' },
-            { id: 'VENTES', title: 'Ventes & Commandes', icon: '📈', image: '', col1: 'N° Commande', col2: 'Montant (€)' },
-            { id: 'ACHATS', title: 'Achats & Sous-Traitance', icon: '🛒', image: '', col1: 'Fournisseur', col2: 'Article / Service' },
-            { id: 'PRODUCTION', title: 'Ordres de Fab (OF)', icon: '📦', image: '', col1: 'Ordre de Fab. (OF)', col2: 'Quantité' },
-            { id: 'STOCK', title: 'Stock Magasin', icon: '🏭', image: '', col1: 'Référence Article', col2: 'Quantité En Stock' },
-            { id: 'QUALITE', title: 'Contrôle Qualité', icon: '✅', image: '', col1: 'N° Lot Testé', col2: 'Résultat Conformité' },
-            { id: 'FINANCE', title: 'Finance & Immo', icon: '💰', image: '', col1: 'Compte Comptable', col2: 'Montant' },
-            { id: 'MOBILE', title: 'Mobilité & App', icon: '📱', image: '', col1: 'Utilisateur Mobile', col2: 'Appareil / ID' },
-            { id: 'REPORTING', title: 'Reporting & KPIs', icon: '📊', image: '', col1: 'Nom du Rapport', col2: 'Fréquence' }
+            { id: 'ZONES_PROD', prefix: 'ZONE', title: 'Zones de Production', icon: '🏭', image: '', col1: 'Nom Zone / Ligne', col2: 'Statut Ligne' },
+            { id: 'PIECES_RECHANGE', prefix: 'PIECE', title: 'Pièces de Rechange', icon: '⚙️', image: '', col1: 'Désignation Pièce', col2: 'Zone de Production Liée' },
+            { id: 'GMAO', prefix: 'GMAO', title: 'Maintenance & GMAO', icon: '🛠️', image: 'YOUR_MAINTENANCE_IMAGE_URL.png', col1: 'Équipement / Machine', col2: 'Statut Panne' },
+            { id: 'CRM', prefix: 'CRM', title: 'CRM & Clients', icon: '📊', image: '', col1: 'Nom Client', col2: 'Statut Prospect' },
+            { id: 'VENTES', prefix: 'VTE', title: 'Ventes & Commandes', icon: '📈', image: '', col1: 'N° Commande', col2: 'Montant (€)' },
+            { id: 'ACHATS', prefix: 'ACH', title: 'Achats & Sous-Traitance', icon: '🛒', image: '', col1: 'Fournisseur', col2: 'Article / Service' },
+            { id: 'PRODUCTION', prefix: 'OF', title: 'Ordres de Fab (OF)', icon: '📦', image: '', col1: 'Ordre de Fab. (OF)', col2: 'Quantité' },
+            { id: 'STOCK', prefix: 'STK', title: 'Stock Magasin', icon: '🏭', image: '', col1: 'Référence Article', col2: 'Quantité En Stock' },
+            { id: 'QUALITE', prefix: 'QLT', title: 'Contrôle Qualité', icon: '✅', image: '', col1: 'N° Lot Testé', col2: 'Résultat Conformité' },
+            { id: 'FINANCE', prefix: 'FIN', title: 'Finance & Immo', icon: '💰', image: '', col1: 'Compte Comptable', col2: 'Montant' },
+            { id: 'MOBILE', prefix: 'MOB', title: 'Mobilité & App', icon: '📱', image: '', col1: 'Utilisateur Mobile', col2: 'Appareil / ID' },
+            { id: 'REPORTING', prefix: 'RPT', title: 'Reporting & KPIs', icon: '📊', image: '', col1: 'Nom du Rapport', col2: 'Fréquence' }
         ];
 
         let database = JSON.parse(localStorage.getItem('sageX3_GMAO_DB')) || {};
@@ -339,7 +339,7 @@ HTML
                 const tr = document.createElement('tr');
                 const badgeStyle = currentActiveModule === 'PIECES_RECHANGE' ? `<span class="badge">${item.val2}</span>` : item.val2;
                 tr.innerHTML = `
-                    <td><code>${item.code}</code></td>
+                    <td><span class="ref-tag">${item.code}</span></td>
                     <td><strong>${item.val1}</strong></td>
                     <td>${badgeStyle}</td>
                     <td>${item.val3 || '-'}</td>
@@ -349,12 +349,23 @@ HTML
             });
         }
 
+        // دالة توليد الرقم المرجعي المباشر تلقائياً
+        function generateAutoRef(modId) {
+            const mod = modulesData.find(m => m.id === modId);
+            const prefix = mod ? mod.prefix : 'REF';
+            const year = new Date().getFullYear();
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            return `${prefix}-${year}-${randomNum}`;
+        }
+
         document.getElementById('modalForm').onsubmit = function(e) {
             e.preventDefault();
             const val1 = document.getElementById('inputField1').value;
             const val2 = document.getElementById('inputField2').value;
             const val3 = document.getElementById('inputField3').value;
-            const code = `${currentActiveModule}-${Math.floor(1000 + Math.random() * 9000)}`;
+            
+            // إنشاء الرقم المرجعي تلقائياً بدون تدخل المستخدم
+            const code = generateAutoRef(currentActiveModule);
 
             database[currentActiveModule].push({ code, val1, val2, val3 });
             localStorage.setItem('sageX3_GMAO_DB', JSON.stringify(database));
