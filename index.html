@@ -1,10 +1,9 @@
-HTML
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecosystème GMAO & Sage X3 Integrated Hub</title>
+    <title>Ecosystème GMAO, Production & Sage X3 Integrated Hub</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
         body { background: #0b0f19; color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-x: hidden; }
@@ -89,13 +88,13 @@ HTML
 
         /* Bottom Toolbar Bar */
         .bottom-bar {
-            width: 100%; max-width: 850px; background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px; padding: 15px 25px; margin-top: 10px; display: flex; justify-content: space-around;
-            align-items: center; gap: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            width: 100%; max-width: 900px; background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; padding: 15px 20px; margin-top: 10px; display: flex; justify-content: space-around;
+            align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.4); flex-wrap: wrap;
         }
-        .bottom-item { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: background 0.2s; }
+        .bottom-item { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: background 0.2s; }
         .bottom-item:hover { background: #334155; }
-        .bottom-item .b-icon { font-size: 1.3rem; }
+        .bottom-item .b-icon { font-size: 1.2rem; }
         .bottom-item .b-text { font-size: 0.8rem; font-weight: 600; color: #cbd5e1; }
 
         /* Modal Popup System */
@@ -106,7 +105,7 @@ HTML
         }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-content {
-            background: #1e293b; border: 1px solid #3b82f6; border-radius: 16px; width: 90%; max-width: 750px;
+            background: #1e293b; border: 1px solid #3b82f6; border-radius: 16px; width: 90%; max-width: 800px;
             max-height: 85vh; overflow-y: auto; padding: 25px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); color: #f8fafc;
         }
         .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 20px; }
@@ -119,7 +118,7 @@ HTML
         .form-group { display: flex; flex-direction: column; gap: 5px; }
         .form-group.full { grid-column: span 2; }
         .form-group label { font-size: 0.8rem; font-weight: 600; color: #94a3b8; }
-        .form-group input { background: #0f172a; border: 1px solid #334155; color: white; padding: 10px; border-radius: 8px; font-size: 0.9rem; outline: none; }
+        .form-group input, .form-group select { background: #0f172a; border: 1px solid #334155; color: white; padding: 10px; border-radius: 8px; font-size: 0.9rem; outline: none; }
         .btn-add { background: #22c55e; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
         
         /* Data Table */
@@ -129,13 +128,14 @@ HTML
         td { padding: 12px; border-bottom: 1px solid #334155; color: #e2e8f0; }
         .btn-delete { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
         .btn-delete:hover { background: #ef4444; color: white; }
+        .badge { background: #0284c7; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Plateforme Intégrée Sage X3 & GMAO</h1>
-        <p>Cliquez sur un module pour gérer les données (Saisie, Ajout, Suppression)</p>
+        <p>Gestion des Zones de Production & Connexion aux Pièces de Rechange</p>
     </header>
 
     <!-- Main Dynamic Hub -->
@@ -144,28 +144,31 @@ HTML
 
         <!-- Center Logo (مخصص لصورتك) -->
         <div class="center-logo" onclick="openModal('HUB', '⚙️ Centre de Contrôle Central')">
-            <!-- https://chatgpt.com/s/m_6aa5cce8c2348191b088b19bdf608faf src -->
-            <img src="https://via.placeholder.com/170/000000/22c55e?text=SAGE+X3" id="centerLogoImg" alt="Logo Central">
+            <img src="YOUR_CENTER_IMAGE_URL.png" id="centerLogoImg" alt="Logo Central" onerror="this.src='https://via.placeholder.com/170/000000/22c55e?text=SAGE+X3'">
         </div>
     </div>
 
     <!-- Bottom Toolbar -->
     <div class="bottom-bar">
+        <div class="bottom-item" onclick="openModal('ZONES_PROD', '🏭 Zones & Lignes de Production')">
+            <span class="b-icon">🏭</span>
+            <span class="b-text">Zones de Production</span>
+        </div>
+        <div class="bottom-item" onclick="openModal('PIECES_RECHANGE', '⚙️ Stock Pièces de Rechange')">
+            <span class="b-icon">⚙️</span>
+            <span class="b-text">Pièces de Rechange</span>
+        </div>
         <div class="bottom-item" onclick="openModal('PLANNING', '🔌 Ordonnancement & Planning')">
             <span class="b-icon">🔌</span>
-            <span class="b-text">Ordonnancement Planning</span>
-        </div>
-        <div class="bottom-item" onclick="openModal('PREVISIONS', '📈 Prévisions des Ventes')">
-            <span class="b-icon">📈</span>
-            <span class="b-text">Prévisions Ventes</span>
+            <span class="b-text">Planning</span>
         </div>
         <div class="bottom-item" onclick="openModal('FINANCIER', '📊 Contrôle Financier')">
             <span class="b-icon">📊</span>
-            <span class="b-text">Contrôle Financier</span>
+            <span class="b-text">Financier</span>
         </div>
         <div class="bottom-item" onclick="openModal('ADMIN', '🛡️ Administration X3')">
             <span class="b-icon">🛡️</span>
-            <span class="b-text">Administration X3</span>
+            <span class="b-text">Admin X3</span>
         </div>
     </div>
 
@@ -183,7 +186,7 @@ HTML
                         <label id="lblField1">Champ 1</label>
                         <input type="text" id="inputField1" required placeholder="Saisir la valeur...">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="field2Container">
                         <label id="lblField2">Champ 2</label>
                         <input type="text" id="inputField2" required placeholder="Saisir la valeur...">
                     </div>
@@ -213,23 +216,19 @@ HTML
     </div>
 
     <script>
-        // مصفوفة الوحدات مع إمكانية إضافة رابط صورة لكل وحدة (image property)
         const modulesData = [
+            { id: 'ZONES_PROD', title: 'Zones de Production', icon: '🏭', image: '', col1: 'Nom Zone / Ligne', col2: 'Statut Ligne' },
+            { id: 'PIECES_RECHANGE', title: 'Pièces de Rechange', icon: '⚙️', image: '', col1: 'Désignation Pièce', col2: 'Zone de Production Liée' },
+            { id: 'GMAO', title: 'Maintenance & GMAO', icon: '🛠️', image: 'YOUR_MAINTENANCE_IMAGE_URL.png', col1: 'Équipement / Machine', col2: 'Statut Panne' },
             { id: 'CRM', title: 'CRM & Clients', icon: '📊', image: '', col1: 'Nom Client', col2: 'Statut Prospect' },
             { id: 'VENTES', title: 'Ventes & Commandes', icon: '📈', image: '', col1: 'N° Commande', col2: 'Montant (€)' },
             { id: 'ACHATS', title: 'Achats & Sous-Traitance', icon: '🛒', image: '', col1: 'Fournisseur', col2: 'Article / Service' },
-            { id: 'PRODUCTION', title: 'Production & OF', icon: '🏭', image: '', col1: 'Ordre de Fab. (OF)', col2: 'Quantité' },
-            { id: 'STOCK', title: 'Stock & Logistique', icon: '📦', image: '', col1: 'Référence Article', col2: 'Quantité En Stock' },
+            { id: 'PRODUCTION', title: 'Ordres de Fab (OF)', icon: '📦', image: '', col1: 'Ordre de Fab. (OF)', col2: 'Quantité' },
+            { id: 'STOCK', title: 'Stock Magasin', icon: '🏭', image: '', col1: 'Référence Article', col2: 'Quantité En Stock' },
             { id: 'QUALITE', title: 'Contrôle Qualité', icon: '✅', image: '', col1: 'N° Lot Testé', col2: 'Résultat Conformité' },
-            
-            // وحدة الصيانة GMAO / Maintenance المخصصة لصورتك
-            { id: 'GMAO', title: 'Maintenance & GMAO', icon: '🛠️', image: 'https://via.placeholder.com/50/38bdf8/ffffff?text=GMAO', col1: 'Équipement / Machine', col2: 'Statut Panne' },
-            
             { id: 'FINANCE', title: 'Finance & Immo', icon: '💰', image: '', col1: 'Compte Comptable', col2: 'Montant' },
-            { id: 'FACTURE', title: 'Facture Électronique', icon: '🧾', image: '', col1: 'N° Facture', col2: 'Statut Envoi' },
             { id: 'MOBILE', title: 'Mobilité & App', icon: '📱', image: '', col1: 'Utilisateur Mobile', col2: 'Appareil / ID' },
-            { id: 'REPORTING', title: 'Reporting & KPIs', icon: '📊', image: '', col1: 'Nom du Rapport', col2: 'Fréquence' },
-            { id: 'INTEROP', title: 'Interopérabilité (API)', icon: '🔌', image: '', col1: 'Nom API / Flux', col2: 'Protocole' }
+            { id: 'REPORTING', title: 'Reporting & KPIs', icon: '📊', image: '', col1: 'Nom du Rapport', col2: 'Fréquence' }
         ];
 
         let database = JSON.parse(localStorage.getItem('sageX3_GMAO_DB')) || {};
@@ -252,8 +251,7 @@ HTML
                 node.className = 'module-node';
                 node.style.transform = `translate(${x}px, ${y}px)`;
 
-                // عرض صورة إذا كانت متوفرة أو أيقونة Emoji
-                const iconContent = mod.image ? `<img src="${mod.image}" alt="${mod.title}">` : `<span>${mod.icon}</span>`;
+                const iconContent = mod.image ? `<img src="${mod.image}" alt="${mod.title}" onerror="this.outerHTML='<span>${mod.icon}</span>'">` : `<span>${mod.icon}</span>`;
 
                 node.innerHTML = `
                     <div class="icon-box">${iconContent}</div>
@@ -277,6 +275,27 @@ HTML
             document.getElementById('thCol1').textContent = modConfig.col1;
             document.getElementById('thCol2').textContent = modConfig.col2;
 
+            // تخصيص خانة الإدخال لربط قطعة الغيار بـ منطقة الإنتاج
+            const f2Container = document.getElementById('field2Container');
+            if (moduleId === 'PIECES_RECHANGE') {
+                const zones = database['ZONES_PROD'] || [];
+                let optionsHtml = zones.length > 0 
+                    ? zones.map(z => `<option value="${z.val1}">${z.val1}</option>`).join('') 
+                    : '<option value="Stock Général">Stock Général (Aucune zone créée)</option>';
+                
+                f2Container.innerHTML = `
+                    <label id="lblField2">Lier à la Zone de Production</label>
+                    <select id="inputField2" required>
+                        ${optionsHtml}
+                    </select>
+                `;
+            } else {
+                f2Container.innerHTML = `
+                    <label id="lblField2">${modConfig.col2}</label>
+                    <input type="text" id="inputField2" required placeholder="Saisir la valeur...">
+                `;
+            }
+
             document.getElementById('modalForm').reset();
             renderTableData();
             modal.classList.add('active');
@@ -296,10 +315,11 @@ HTML
 
             items.forEach((item, index) => {
                 const tr = document.createElement('tr');
+                const badgeStyle = currentActiveModule === 'PIECES_RECHANGE' ? `<span class="badge">${item.val2}</span>` : item.val2;
                 tr.innerHTML = `
                     <td><code>${item.code}</code></td>
                     <td><strong>${item.val1}</strong></td>
-                    <td>${item.val2}</td>
+                    <td>${badgeStyle}</td>
                     <td>${item.val3 || '-'}</td>
                     <td><button class="btn-delete" onclick="deleteItem(${index})">🗑️ Supprimer</button></td>
                 `;
