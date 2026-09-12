@@ -5,13 +5,13 @@ HTML
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de Maintenance & KPIs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; color: #1c1e21; }
         header { background-color: #1a365d; color: white; padding: 20px; text-align: center; }
         .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
         
-        /* Dashboard Cards */
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 5px solid #3182ce; }
         .card.warning { border-left-color: #dd6b20; }
@@ -19,8 +19,7 @@ HTML
         .card h3 { font-size: 1.8em; margin-top: 5px; color: #2d3748; }
         .card p { color: #718096; font-size: 0.85em; font-weight: 600; text-transform: uppercase; }
 
-        /* Table & Forms Section */
-        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
         @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; } }
         
         .box { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -34,13 +33,6 @@ HTML
         .status-danger { background: #fed7d7; color: #c53030; }
         .status-progress { background: #feebc8; color: #c05621; }
         .status-done { background: #c6f6d5; color: #22543d; }
-
-        /* Form Controls */
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 0.85em; margin-bottom: 4px; color: #4a5568; }
-        .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #cbd5e0; border-radius: 4px; }
-        button { width: 100%; padding: 10px; background: #3182ce; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #2b6cb0; }
     </style>
 </head>
 <body>
@@ -58,11 +50,11 @@ HTML
                 <h3>94.2%</h3>
             </div>
             <div class="card warning">
-                <p>Temps Moyen de Réparation (MTTR)</p>
+                <p>MTTR (Temps de Réparation)</p>
                 <h3>1.8 h</h3>
             </div>
             <div class="card">
-                <p>Ordres d'Intervention Ouverts</p>
+                <p>Ordres Ouverts</p>
                 <h3>5</h3>
             </div>
             <div class="card success">
@@ -73,15 +65,20 @@ HTML
 
         <!-- Main Content Section -->
         <div class="content-grid">
+            <!-- Chart Container -->
+            <div class="box">
+                <h2>Analyse des Pannes par Mois</h2>
+                <canvas id="maintenanceChart"></canvas>
+            </div>
+
             <!-- Interventions Table -->
             <div class="box">
-                <h2>Demandes et Interventions Récents</h2>
+                <h2>Demandes Récentes</h2>
                 <table>
                     <thead>
                         <tr>
                             <th>Équipement</th>
                             <th>Type</th>
-                            <th>Priorité</th>
                             <th>Statut</th>
                         </tr>
                     </thead>
@@ -89,54 +86,38 @@ HTML
                         <tr>
                             <td>Compresseur A1</td>
                             <td>Corrective</td>
-                            <td>Haute</td>
                             <td><span class="status status-danger">En Panne</span></td>
                         </tr>
                         <tr>
                             <td>Ligne d'emballage 2</td>
                             <td>Préventive</td>
-                            <td>Moyenne</td>
                             <td><span class="status status-progress">En Cours</span></td>
                         </tr>
                         <tr>
                             <td>Moteur Pompe B</td>
-                            <td>Inspecton</td>
-                            <td>Basse</td>
+                            <td>Inspection</td>
                             <td><span class="status status-done">Terminé</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-            <!-- New Request Form -->
-            <div class="box">
-                <h2>Signaler une Panne</h2>
-                <form onsubmit="event.preventDefault(); alert('Signalement envoyé avec succès!');">
-                    <div class="form-group">
-                        <label>Nom de l'équipement</label>
-                        <input type="text" placeholder="Ex: Machine X" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Type d'intervention</label>
-                        <select>
-                            <option>Corrective (Panne)</option>
-                            <option>Préventive</option>
-                            <option>Amélioration</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Niveau d'urgence</label>
-                        <select>
-                            <option>Basse</option>
-                            <option>Moyenne</option>
-                            <option>Haute / Urgente</option>
-                        </select>
-                    </div>
-                    <button type="submit">Envoyer le Rapport</button>
-                </form>
-            </div>
         </div>
     </div>
 
+    <script>
+        const ctx = document.getElementById('maintenanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+                datasets: [{
+                    label: 'Nombre d pannes',
+                    data: [12, 19, 8, 5, 2, 3],
+                    backgroundColor: '#3182ce'
+                }]
+            },
+            options: { responsive: true }
+        });
+    </script>
 </body>
 </html>
